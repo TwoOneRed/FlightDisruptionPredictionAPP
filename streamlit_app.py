@@ -55,8 +55,8 @@ def model(label,X,y):
 
     return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
 
+st.dataframe(df)
 if uploaded_file:
-    st.dataframe(df)
     X = df.drop('delayStatus', axis = 1)
     y = df['delayStatus']
 
