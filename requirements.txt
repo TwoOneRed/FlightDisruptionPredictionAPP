@@ -1,3 +1,0 @@
-streamlit
-pandas
-powerbiclient==3.0.2
