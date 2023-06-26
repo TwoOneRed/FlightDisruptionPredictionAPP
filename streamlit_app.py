@@ -55,6 +55,51 @@ def model(label,X,y):
     recall.append(recall_score(y, y_pred))
     f1.append(f1_score(y, y_pred))
 
+    filename = "Model/"+label+"_svm.pkl"
+    loaded_model = pickle.load(open(filename,'rb'))
+    y_pred = loaded_model.predict(X)
+    model.append("Support Vector Machine")
+    accuracy.append(round((accuracy_score(y, y_pred)*100), 2))
+    precision.append(precision_score(y, y_pred))
+    recall.append(recall_score(y, y_pred))
+    f1.append(f1_score(y, y_pred))
+
+    filename = "Model/"+label+"_dt.pkl"
+    loaded_model = pickle.load(open(filename,'rb'))
+    y_pred = loaded_model.predict(X)
+    model.append("Decision Tree")
+    accuracy.append(round((accuracy_score(y, y_pred)*100), 2))
+    precision.append(precision_score(y, y_pred))
+    recall.append(recall_score(y, y_pred))
+    f1.append(f1_score(y, y_pred))
+
+    filename = "Model/"+label+"_rf.pkl"
+    loaded_model = pickle.load(open(filename,'rb'))
+    y_pred = loaded_model.predict(X)
+    model.append("Random Forest")
+    accuracy.append(round((accuracy_score(y, y_pred)*100), 2))
+    precision.append(precision_score(y, y_pred))
+    recall.append(recall_score(y, y_pred))
+    f1.append(f1_score(y, y_pred))
+
+    filename = "Model/"+label+"_knn.pkl"
+    loaded_model = pickle.load(open(filename,'rb'))
+    y_pred = loaded_model.predict(X)
+    model.append("K Nearest Neighbours")
+    accuracy.append(round((accuracy_score(y, y_pred)*100), 2))
+    precision.append(precision_score(y, y_pred))
+    recall.append(recall_score(y, y_pred))
+    f1.append(f1_score(y, y_pred))
+
+    filename = "Model/"+label+"_lr.pkl"
+    loaded_model = pickle.load(open(filename,'rb'))
+    y_pred = loaded_model.predict(X)
+    model.append("Logistic Regression")
+    accuracy.append(round((accuracy_score(y, y_pred)*100), 2))
+    precision.append(precision_score(y, y_pred))
+    recall.append(recall_score(y, y_pred))
+    f1.append(f1_score(y, y_pred))
+
     return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
 
 
@@ -66,9 +111,10 @@ if uploaded_file:
     data_encode = data_encode.apply(LabelEncoder().fit_transform)
 
     X = data_encode.drop('delayStatus', axis = 1)
-    X = X[rfe_score.Features[0:10]].copy()
+    X10 = X[rfe_score.Features[0:10]].copy()
+    X30 = X[rfe_score.Features[0:30]].copy()
     y = data_encode['delayStatus']
 
-    st.dataframe(model("norm10",X,y))
+    st.dataframe(model("norm10",X10,y))
 
 
