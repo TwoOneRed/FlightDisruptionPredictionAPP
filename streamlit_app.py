@@ -5,4 +5,4 @@ st.title('Flight Disruption Prediction Applications')
 st.text('1191100292  Leong Yi Hong')
 
 # Display the report
-st.markdown("""<iframe title="PB" width="1280" height="720" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>""",unsafe_allow_html=True)
+st.markdown("""<iframe title="PB" width="500"src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>""",unsafe_allow_html=True)
