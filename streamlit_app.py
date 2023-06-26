@@ -37,7 +37,7 @@ if uploaded_file:
 else:
     st.text("Original Dataset")
     sheet = client.open("FYP2Data_PowerBI").sheet1
-    df = sheet
+    df = pd.DataFrame(sheet)
     st.dataframe(sheet)
 
 # Create a Streamlit app
