@@ -27,22 +27,11 @@ if uploaded_file:
 
     # Update the Google Sheets file with the modified DataFrame
     st.write(sheet.update([newdata.columns.values.tolist()] + newdata.values.tolist()))
-    
-
-def get_markdown_content():
-    return """<iframe title="PB" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>"""
 
 # Create a Streamlit app
 st.title("Power BI Dashboard")
 
-# Add a refresh button
-refresh_button = st.button("Refresh")
-
 # Display the report
-if refresh_button:
-    markdown_content = get_markdown_content()
-    st.markdown(markdown_content, unsafe_allow_html=True)
-else:
-    # Load the initial content
-    st.markdown(get_markdown_content(), unsafe_allow_html=True)
+st.markdown("""<iframe title="PB" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
+
 
