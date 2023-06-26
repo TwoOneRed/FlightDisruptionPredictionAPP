@@ -53,9 +53,10 @@ def model(label,X,y):
 
     return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
 
-X = newdata.drop('delayStatus', axis = 1)
-y = newdata['delayStatus']
+if uploaded_file:
+    X = newdata.drop('delayStatus', axis = 1)
+    y = newdata['delayStatus']
 
-st.DataFrame(model("norm10",X,y))
+    st.DataFrame(model("norm10",X,y))
 
 
