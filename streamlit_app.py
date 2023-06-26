@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 
 from powerbiclient import Report
-from embedpy.powerbi import Report
 
 st.title('Flight Disruption Prediction Applications')
 st.text('1191100292  Leong Yi Hong')
@@ -20,9 +19,5 @@ report_id = 'ff3647ff-cd01-4251-b793-64f480078853'  # Replace with your actual r
 # Create an instance of the Report class
 report = Report(tenant_id=tenant_id, client_id=client_id, client_secret=client_secret, authority=authority, report_id=report_id, group_id=group_id)
 
-# Create a Streamlit app
-st.title("Power BI Dashboard")
-
 # Display the report
-report_url = report.get_embed_url()
-st.components.v1.iframe(report_url, height=600)
+st.markdown(report,unsafe_allow_html=True)
