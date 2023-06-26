@@ -26,7 +26,8 @@ if uploaded_file:
     newdata = df.astype(str)
 
     # Update the Google Sheets file with the modified DataFrame
-    sheet.update([newdata.columns.values.tolist()] + newdata.values.tolist())
+    st.write(sheet.update([newdata.columns.values.tolist()] + newdata.values.tolist()))
+    
 
 def get_markdown_content():
     return """<iframe title="PB" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>"""
