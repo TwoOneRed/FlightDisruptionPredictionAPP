@@ -116,6 +116,8 @@ def model(label,X,y):
     return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
 
 
+st.title("Prediction Result Using Pre-Trained Model")
+
 rfe_score=pd.read_csv("Model/rfe_score.csv")
 
 if len(df) > 1:
@@ -127,8 +129,7 @@ if len(df) > 1:
     X10 = X[rfe_score.Features[0:10]].copy()
     X30 = X[rfe_score.Features[0:30]].copy()
     y = data_encode['delayStatus']
-
-    st.title("Prediction Result Using Pre-Trained Model")
+    
     st.text("Model Trained Using top 10 Features and Normal Data")
     st.dataframe(model("norm10",X10,y))
 
@@ -140,6 +141,8 @@ if len(df) > 1:
 
     st.text("Model Trained Using top 30 Features and SMOTE Data")
     st.dataframe(model("smote30",X30,y))
+else:
+    st.text("No data available in the spreadsheet")
 
 
 
