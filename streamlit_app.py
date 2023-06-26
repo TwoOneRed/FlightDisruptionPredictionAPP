@@ -37,8 +37,9 @@ if uploaded_file:
 else:
     st.text("Original Dataset")
     sheet = client.open("FYP2Data_PowerBI").sheet1
-    df = pd.DataFrame(sheet)
-    st.dataframe(sheet)
+    df = sheet.get_all_values()
+    df = pd.DataFrame(df[1:], columns=df[0])
+    st.dataframe(df)
 
 # Create a Streamlit app
 st.title("Power BI Dashboard")
