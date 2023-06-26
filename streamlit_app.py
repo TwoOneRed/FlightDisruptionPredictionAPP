@@ -2,7 +2,8 @@ import streamlit as st
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
-from powerbiclient import Report
+import pickle
+from sklearn.metrics import accuracy_score,precision_score, recall_score, f1_score
 
 st.title('Flight Disruption Prediction Applications')
 st.text('1191100292  Leong Yi Hong')
@@ -33,5 +34,29 @@ st.title("Power BI Dashboard")
 
 # Display the report
 st.markdown("""<iframe title="PB" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
+
+def model(label,X,y):
+    model = []
+    accuracy = []
+    precision = []
+    recall = []
+    f1 = []
+
+    filename = "/Model/"+label+"_nb.pkl"
+    with open(filename, 'rb') as file:
+        loaded_model = pickle.load(file)
+    y_pred = loaded_model.predict(X)
+    model.append("Naive Bayes")
+    accuracy.append(round((accuracy_score(y, y_pred)*100), 2))
+    precision.append(precision_score(y, y_pred))
+    recall.append(recall_score(y, y_pred))
+    f1.append(f1_score(y, y_pred))
+
+    return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
+
+X = newdata.drop('delayStatus', axis = 1)
+y = newdata['delayStatus']
+
+st.DataFrame(model("norm10",X,y))
 
 
