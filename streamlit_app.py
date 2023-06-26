@@ -38,8 +38,12 @@ else:
     st.text("Original Dataset")
     sheet = client.open("FYP2Data_PowerBI").sheet1
     df = sheet.get_all_values()
-    df = pd.DataFrame(df[1:], columns=df[0])
-    st.dataframe(df)
+    # Check if there are any rows in the DataFrame
+    if len(df) > 1:
+        df = pd.DataFrame(df[1:], columns=df[0])
+        st.dataframe(df)
+    else:
+        st.text("No data available in the spreadsheet")
 
 # Create a Streamlit app
 st.title("Power BI Dashboard")
