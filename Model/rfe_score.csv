@@ -1,0 +1,49 @@
+﻿Features,Score
+dep_Time_utc,1.0
+Airline,0.98
+dep_PartofHour_local,0.96
+arr_Time_utc,0.94
+duration,0.91
+Departure_Temperature,0.89
+Departure_Busyness,0.87
+Aircraft_Model,0.85
+Departure_Humidity,0.83
+dep_Date_utc,0.81
+arr_PartofHour_local,0.79
+dep_Airport,0.77
+Flight_Type,0.74
+arr_City,0.72
+dep_Day_utc,0.7
+Departure_SeaLevelPressure,0.68
+arr_Date_utc,0.66
+arr_Airport,0.64
+Departure_WindDirection,0.62
+Arrival_Temperature,0.6
+arr_Day_utc,0.57
+Departure_Cloudcover,0.55
+Departure_WindGusts,0.53
+Arrival_Busyness,0.51
+Departure_WindSpeed,0.49
+Arrival_SeaLevelPressure,0.47
+Arrival_Intensity Level,0.45
+Arrival_WindGusts,0.43
+Arrival_Cloudcover,0.4
+Arrival_Humidity,0.38
+dep_City,0.36
+Departure_Rain,0.34
+Arrival_WindSpeed,0.32
+Arrival_Intensity Status,0.3
+Departure_Intensity Status,0.28
+Departure_Intensity Level,0.26
+Departure_Precipitation,0.23
+Departure_WeatherCode,0.21
+Arrival_WindDirection,0.19
+Aircraft_isWidebody,0.17
+Arrival_WeatherCode,0.15
+dep_Weekend_local,0.13
+Aircraft_isTurboProp,0.11
+arr_Weekend_local,0.09
+Arrival_Rain,0.06
+Departure_Snowfall,0.04
+Arrival_Precipitation,0.02
+Arrival_Snowfall,0.0

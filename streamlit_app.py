@@ -59,12 +59,15 @@ def model(label,X,y):
 
 
 if uploaded_file:
+    rfe_score=pd.read_csv("Model/rfe_score.csv")
+
+    df = df.drop(columns=['dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed'])
     data_encode = df.copy()
     data_encode = data_encode.apply(LabelEncoder().fit_transform)
 
     X = data_encode.drop('delayStatus', axis = 1)
+    X = X[rfe_score.Features[0:10]].copy()
     y = data_encode['delayStatus']
-
 
     st.dataframe(model("norm10",X,y))
 
