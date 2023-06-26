@@ -59,6 +59,6 @@ if uploaded_file:
     X = df.drop('delayStatus', axis = 1)
     y = df['delayStatus']
 
-    st.DataFrame(model("norm10",X,y))
+    st.dataframe(model("norm10",X,y))
 
 
