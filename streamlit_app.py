@@ -44,7 +44,7 @@ def model(label,X,y):
     recall = []
     f1 = []
 
-    filename = "FlightDisruptionPredictionAPP/Model/"+label+"_nb.pkl"
+    filename = "Model/"+label+"_nb.pkl"
     loaded_model = pickle.load(open(filename),'rb')
     y_pred = loaded_model.predict(X)
     model.append("Naive Bayes")
