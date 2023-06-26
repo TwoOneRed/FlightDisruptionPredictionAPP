@@ -115,6 +115,17 @@ if uploaded_file:
     X30 = X[rfe_score.Features[0:30]].copy()
     y = data_encode['delayStatus']
 
+    st.title("Prediction Result Using Pre-Trained Model")
+    st.text("Model Trained Using top 10 Features and Normal Data")
     st.dataframe(model("norm10",X10,y))
+
+    st.text("Model Trained Using top 30 Features and Normal Data")
+    st.dataframe(model("norm30",X30,y))
+
+    st.text("Model Trained Using top 10 Features and SMOTE Data")
+    st.dataframe(model("smote10",X10,y))
+
+    st.text("Model Trained Using top 30 Features and SMOTE Data")
+    st.dataframe(model("smote30",X30,y))
 
 
