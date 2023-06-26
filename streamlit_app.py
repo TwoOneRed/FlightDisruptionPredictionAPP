@@ -45,7 +45,7 @@ def model(label,X,y):
     f1 = []
 
     filename = "Model/"+label+"_nb.pkl"
-    loaded_model = pickle.load(open(filename))
+    loaded_model = pickle.load(open(filename,'rb'))
     y_pred = loaded_model.predict(X)
     model.append("Naive Bayes")
     accuracy.append(round((accuracy_score(y, y_pred)*100), 2))
