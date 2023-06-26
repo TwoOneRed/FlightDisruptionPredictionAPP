@@ -1,6 +1,5 @@
-pip==22.3.2
-numpy==1.21.5
-scikit-learn==1.0.2
+pip
+scikit-learn
 gspread
 oauth2client
 powerbiclient
