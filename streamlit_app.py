@@ -58,7 +58,8 @@ def model(label,X,y):
 if uploaded_file:
     X = df.drop('delayStatus', axis = 1)
     y = df['delayStatus']
-
+    
+    print(os.getcwd())
     st.dataframe(model("norm10",X,y))
 
 
