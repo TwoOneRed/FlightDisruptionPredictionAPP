@@ -11,7 +11,8 @@ scope = [ 'https://www.googleapis.com/auth/spreadsheets','https://www.googleapis
 credentials = ServiceAccountCredentials.from_json_keyfile_name("key.json",scope)
 client = gspread.authorize(credentials)
 
-uploaded_file = st.file_uploader("New Dataset", type="csv")
+st.title("Upload Dataset")
+uploaded_file = st.file_uploader(type="csv")
 
 if uploaded_file:
     # Do something with the uploaded file
