@@ -15,6 +15,8 @@ client = gspread.authorize(credentials)
 st.title("Upload Dataset")
 uploaded_file = st.file_uploader("New Dataset", type="csv")
 
+df = pd.DataFrame()
+
 if uploaded_file:
     # Do something with the uploaded file
     df = pd.read_csv(uploaded_file)
@@ -54,8 +56,8 @@ def model(label,X,y):
     return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
 
 if uploaded_file:
-    X = newdata.drop('delayStatus', axis = 1)
-    y = newdata['delayStatus']
+    X = df.drop('delayStatus', axis = 1)
+    y = df['delayStatus']
 
     st.DataFrame(model("norm10",X,y))
 
