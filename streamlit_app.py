@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pickle
@@ -45,7 +44,7 @@ def model(label,X,y):
     recall = []
     f1 = []
 
-    filename = "/Model/"+label+"_nb.pkl"
+    filename = "FlightDisruptionPredictionAPP/Model/"+label+"_nb.pkl"
     loaded_model = pickle.load(open(filename),'rb')
     y_pred = loaded_model.predict(X)
     model.append("Naive Bayes")
@@ -60,7 +59,6 @@ if uploaded_file:
     X = df.drop('delayStatus', axis = 1)
     y = df['delayStatus']
 
-    print(os.getcwd())
     st.dataframe(model("norm10",X,y))
 
 
