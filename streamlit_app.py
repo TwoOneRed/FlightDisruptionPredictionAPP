@@ -3,6 +3,8 @@ import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pickle
+
+from sklearn.preprocessing import MinMaxScaler,LabelEncoder
 from sklearn.metrics import accuracy_score,precision_score, recall_score, f1_score
 
 st.title('Flight Disruption Prediction Applications')
@@ -55,10 +57,13 @@ def model(label,X,y):
 
     return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
 
-st.dataframe(df)
+
 if uploaded_file:
-    X = df.drop('delayStatus', axis = 1)
-    y = df['delayStatus']
+    data_encode = df.copy()
+    data_encode = data_encode.apply(LabelEncoder().fit_transform)
+
+    X = data_encode.drop('delayStatus', axis = 1)
+    y = data_encode['delayStatus']
 
 
     st.dataframe(model("norm10",X,y))
