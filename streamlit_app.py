@@ -36,7 +36,7 @@ if uploaded_file:
 
 else:
     st.text("Original Dataset")
-    sheet = client.open("FYP2Data_PowerBI").sheet1
+    sheet = client.open("FYP2_PredictionResult").sheet1
     df = sheet.get_all_values()
     # Check if there are any rows in the DataFrame
     if len(df) > 1:
