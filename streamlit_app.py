@@ -237,6 +237,6 @@ else:
 st.title("Power BI Dashboard")
 
 # Display the report
-st.markdown("""<iframe title="PB" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
+st.markdown("""<iframe title="Report Section" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiYmZiZmJlZDktNjcyZS00MTEzLWEyOTQtYzgzZDJhYTVlNGE3IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
 
 
