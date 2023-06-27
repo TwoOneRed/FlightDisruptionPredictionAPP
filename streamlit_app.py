@@ -108,7 +108,7 @@ rfe_score=pd.read_csv("Model/rfe_score.csv")
 merged_df = pd.DataFrame()
 
 if len(df) > 1:
-    data_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed','Prediction']).copy()
+    data_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed']).copy()
     data_encode = data_encode.apply(LabelEncoder().fit_transform)
 
     X = data_encode.drop('delayStatus', axis = 1)
