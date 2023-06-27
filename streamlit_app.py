@@ -32,7 +32,7 @@ else:
     # Check if there are any rows in the DataFrame
     if len(df) > 1:
         df = pd.DataFrame(df[1:], columns=df[0])
-        df = df.drop(columns=['Prediction']).copy()
+        df = df.drop(columns=['Prediction']).copy()  
         st.dataframe(df)
     else:
         st.text("No data available in the spreadsheet")
@@ -160,7 +160,7 @@ if len(df) > 1:
             +str(highest_accuracy_row['Accuracy'])+" compare to other model. \nTherefore, "
             +highest_accuracy_row["Model"]+" is used in the process afterwards.")
 
-    predict_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed','Prediction']).copy()
+    predict_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed']).copy()
     predict_encode = predict_encode.apply(LabelEncoder().fit_transform)
     X = predict_encode.drop('delayStatus', axis = 1)
     X10 = X[rfe_score.Features[0:10]].copy()
