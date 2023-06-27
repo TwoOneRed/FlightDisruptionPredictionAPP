@@ -32,7 +32,7 @@ else:
     # Check if there are any rows in the DataFrame
     if len(df) > 1:
         df = pd.DataFrame(df[1:], columns=df[0])
-        df = df.drop(columns=['F1-score']).copy()  
+        df = df.drop(columns=['Prediction']).copy()  
         st.dataframe(df)
     else:
         st.text("No data available in the spreadsheet")
