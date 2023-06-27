@@ -146,7 +146,7 @@ if len(df) > 1:
     st.dataframe(merged_df)
 
     highest_accuracy_row = merged_df.loc[merged_df['Accuracy'].idxmax()]
-
+    highest_accuracy_row["Model_Data"] = "nan"
     text = ""
     if (highest_accuracy_row['Model_Data'] == "norm10"):
         text = "Normal Data with 10 Features"
