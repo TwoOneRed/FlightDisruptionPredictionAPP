@@ -143,8 +143,7 @@ if len(df) > 1:
 
     # Merge all the dataframes
     merged_df = pd.concat(dataframes, ignore_index=True)
-    st.dataframe(merged_df)
-
+    
     highest_accuracy_row = merged_df.loc[merged_df['Accuracy'].idxmax()]
     text = ""
     if (highest_accuracy_row['Model_Data'] == "norm10"):
