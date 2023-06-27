@@ -156,8 +156,8 @@ if len(df) > 1:
     else:
         text = "SMOTE Data with 30 Features"        
 
-    st.text(highest_accuracy_row["Model"]+ " using "+text+" pre-trained model has the\nhighest accuracy of "
-            +str(highest_accuracy_row['Accuracy'])+" compare to other model. \nTherefore, "
+    st.text(highest_accuracy_row["Model"]+ " using "+text+" pre-trained model has the\nhighest F1-Score of "
+            +str(highest_accuracy_row['F1-Score'])+" compare to other model. \nTherefore, "
             +highest_accuracy_row["Model"]+" is used in the process afterwards.")
 
     predict_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed']).copy()
