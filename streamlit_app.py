@@ -29,6 +29,7 @@ else:
     st.text("Original Dataset")
     sheet = client.open("FYP2_PredictionResult").sheet1
     df = sheet.get_all_values()
+    df = df.drop(columns=['Prediction']).copy()
     # Check if there are any rows in the DataFrame
     if len(df) > 1:
         df = pd.DataFrame(df[1:], columns=df[0])
@@ -107,7 +108,7 @@ rfe_score=pd.read_csv("Model/rfe_score.csv")
 merged_df = pd.DataFrame()
 
 if len(df) > 1:
-    data_encode = df.drop(columns=['dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed','Prediction']).copy()
+    data_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed','Prediction']).copy()
     data_encode = data_encode.apply(LabelEncoder().fit_transform)
 
     X = data_encode.drop('delayStatus', axis = 1)
@@ -143,7 +144,7 @@ if len(df) > 1:
 
     # Merge all the dataframes
     merged_df = pd.concat(dataframes, ignore_index=True)
-    
+
     highest_accuracy_row = merged_df.loc[merged_df['Accuracy'].idxmax()]
     text = ""
     if (highest_accuracy_row['Model_Data'] == "norm10"):
@@ -159,7 +160,7 @@ if len(df) > 1:
             +str(highest_accuracy_row['Accuracy'])+" compare to other model. \nTherefore, "
             +highest_accuracy_row["Model"]+" is used in the process afterwards.")
 
-    predict_encode = df.drop(columns=['dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed','Prediction']).copy()
+    predict_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed','Prediction']).copy()
     predict_encode = predict_encode.apply(LabelEncoder().fit_transform)
     X = predict_encode.drop('delayStatus', axis = 1)
     X10 = X[rfe_score.Features[0:10]].copy()
