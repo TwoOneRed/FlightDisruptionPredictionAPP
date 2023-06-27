@@ -120,25 +120,25 @@ if len(df) > 1:
     st.text("Model Trained Using top 10 Features and Normal Data")
     norm10result = model("norm10",X10,y)
     st.dataframe(norm10result)
-    norm10result["Model Data"] = "norm10"
+    norm10result["Model_Data"] = "norm10"
     dataframes.append(norm10result)
 
     st.text("Model Trained Using top 30 Features and Normal Data")
     norm30result = model("norm30",X30,y)
     st.dataframe(norm30result)
-    norm30result["Model Data"] = "norm30"
+    norm30result["Model_Data"] = "norm30"
     dataframes.append(norm30result)
 
     st.text("Model Trained Using top 10 Features and SMOTE Data")
     smote10result = model("smote10",X10,y)
     st.dataframe(smote10result)
-    smote10result["Model Data"] = "smote10"
+    smote10result["Model_Data"] = "smote10"
     dataframes.append(smote10result)
 
     st.text("Model Trained Using top 30 Features and SMOTE Data")
     smote30result = model("smote30",X30,y)
     st.dataframe(smote30result)
-    smote30result["Model Data"] = "smote30"
+    smote30result["Model_Data"] = "smote30"
     dataframes.append(smote30result)
 
     # Merge all the dataframes
@@ -146,7 +146,6 @@ if len(df) > 1:
     st.dataframe(merged_df)
 
     highest_accuracy_row = merged_df.loc[merged_df['Accuracy'].idxmax()]
-    highest_accuracy_row["Model_Data"] = "nan"
     text = ""
     if (highest_accuracy_row['Model_Data'] == "norm10"):
         text = "Normal Data with 10 Features"
