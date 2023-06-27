@@ -161,7 +161,7 @@ if len(df) > 1:
 
     predict_encode = df.drop(columns=['dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed']).copy()
     predict_encode = predict_encode.apply(LabelEncoder().fit_transform)
-    X = data_encode.drop('delayStatus', axis = 1)
+    X = predict_encode.drop('delayStatus', axis = 1)
     X10 = X[rfe_score.Features[0:10]].copy()
     X30 = X[rfe_score.Features[0:30]].copy()
     
