@@ -45,12 +45,6 @@ else:
     else:
         st.text("No data available in the spreadsheet")
 
-# Create a Streamlit app
-st.title("Power BI Dashboard")
-
-# Display the report
-st.markdown("""<iframe title="PB" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
-
 def model(label,X,y):
     model = []
     accuracy = []
@@ -130,19 +124,44 @@ if len(df) > 1:
     X30 = X[rfe_score.Features[0:30]].copy()
     y = data_encode['delayStatus']
     
+    dataframes = []
+
     st.text("Model Trained Using top 10 Features and Normal Data")
-    st.dataframe(model("norm10",X10,y))
+    norm10result = model("norm10",X10,y)
+    st.dataframe(norm10result)
+    norm10result["Model Data"] = "norm10"
+    dataframes.append(norm10result)
 
     st.text("Model Trained Using top 30 Features and Normal Data")
-    st.dataframe(model("norm30",X30,y))
+    norm30result = model("norm30",X30,y)
+    st.dataframe(norm30result)
+    norm30result["Model Data"] = "norm30"
+    dataframes.append(norm30result)
 
     st.text("Model Trained Using top 10 Features and SMOTE Data")
-    st.dataframe(model("smote10",X10,y))
+    smote10result = model("smote10",X10,y)
+    st.dataframe(smote10result)
+    smote10result["Model Data"] = "smote10"
+    dataframes.append(smote10result)
 
     st.text("Model Trained Using top 30 Features and SMOTE Data")
-    st.dataframe(model("smote30",X30,y))
+    smote30result = model("smote30",X30,y)
+    st.dataframe(smote30result)
+    smote30result["Model Data"] = "smote30"
+    dataframes.append(smote30result)
+
+    # Merge all the dataframes
+    merged_df = pd.concat(dataframes, ignore_index=True)
+    st.dataframe(merged_df)
 else:
     st.text("No data available in the spreadsheet")
 
+
+
+# Create a Streamlit app
+st.title("Power BI Dashboard")
+
+# Display the report
+st.markdown("""<iframe title="PB" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiMmU3ZjFmODItMDE1My00ZDE4LWJhNmQtOTFiYmM1ODAxYWU4IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
 
 
