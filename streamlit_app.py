@@ -24,15 +24,6 @@ if uploaded_file:
     df = pd.read_csv(uploaded_file)
     st.text("Uploaded Dataset")
     st.dataframe(df.head(5))
-    sheet = client.open("FYP2_PredictionResult").sheet1
-    # Clear the existing data from the sheet
-    sheet.clear()
-
-    #Convert To String
-    newdata = df.astype(str)
-
-    # Update the Google Sheets file with the modified DataFrame
-    st.write(sheet.update([newdata.columns.values.tolist()] + newdata.values.tolist()))
 
 else:
     st.text("Original Dataset")
@@ -109,14 +100,14 @@ def model(label,X,y):
 
     return pd.DataFrame({"Model":model,"Accuracy":accuracy,"Precision":precision,"Recall":recall,"F1-score":f1})
 
-
 st.title("Prediction Result Using Pre-Trained Model")
 
 rfe_score=pd.read_csv("Model/rfe_score.csv")
 
+merged_df = pd.DataFrame()
+
 if len(df) > 1:
-    df = df.drop(columns=['dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed'])
-    data_encode = df.copy()
+    data_encode = df.drop(columns=['dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed']).copy()
     data_encode = data_encode.apply(LabelEncoder().fit_transform)
 
     X = data_encode.drop('delayStatus', axis = 1)
@@ -153,10 +144,70 @@ if len(df) > 1:
     # Merge all the dataframes
     merged_df = pd.concat(dataframes, ignore_index=True)
     st.dataframe(merged_df)
+
+    highest_accuracy_row = merged_df.loc[merged_df['Accuracy'].idxmax()]
+
+    text = ""
+    if (highest_accuracy_row['Model_Data'] == "norm10"):
+        text = "Normal Data with 10 Features"
+    elif (highest_accuracy_row['Model_Data'] == "norm30"):
+        text = "Normal Data with 30 Features"    
+    elif (highest_accuracy_row['Model_Data'] == "smote10"):
+        text = "SMOTE Data with 10 Features"        
+    else:
+        text = "SMOTE Data with 30 Features"        
+
+    st.text(highest_accuracy_row["Model"]+ "using "+text+" pre-trained model has the highest accuracy of "
+            +highest_accuracy_row['Model']+"compare to other model. Therefore, "+highest_accuracy_row["Model"]+"is used in the process afterwards.")
+
+    if (highest_accuracy_row["Model"] == "Naive Bayes"):
+        filename = "Model/"+highest_accuracy_row['Model_Data']+"_nb.pkl"
+        loaded_model = pickle.load(open(filename,'rb'))
+        y_pred = loaded_model.predict(X)
+        df['Prediction'] = y_pred
+
+    elif (highest_accuracy_row["Model"] == "Support Vector Machine"):
+        filename = "Model/"+highest_accuracy_row['Model_Data']+"_svm.pkl"
+        loaded_model = pickle.load(open(filename,'rb'))
+        y_pred = loaded_model.predict(X)
+        df['Prediction'] = y_pred
+
+    elif (highest_accuracy_row["Model"] == "Decision Tree"):
+        filename = "Model/"+highest_accuracy_row['Model_Data']+"_dt.pkl"
+        loaded_model = pickle.load(open(filename,'rb'))
+        y_pred = loaded_model.predict(X)
+        df['Prediction'] = y_pred
+
+    elif (highest_accuracy_row["Model"] == "Random Forest"):
+        filename = "Model/"+highest_accuracy_row['Model_Data']+"_rf.pkl"
+        loaded_model = pickle.load(open(filename,'rb'))
+        y_pred = loaded_model.predict(X)
+        df['Prediction'] = y_pred
+
+    elif (highest_accuracy_row["Model"] == "K Nearest Neighbours"):
+        filename = "Model/"+highest_accuracy_row['Model_Data']+"_knn.pkl"
+        loaded_model = pickle.load(open(filename,'rb'))
+        y_pred = loaded_model.predict(X)
+        df['Prediction'] = y_pred
+
+    else:
+        filename = "Model/"+highest_accuracy_row['Model_Data']+"_lr.pkl"
+        loaded_model = pickle.load(open(filename,'rb'))
+        y_pred = loaded_model.predict(X)
+        df['Prediction'] = y_pred
+    
+    sheet = client.open("FYP2_PredictionResult").sheet1
+    #Clear the existing data from the sheet
+    sheet.clear()
+
+    #Convert To String
+    df = df.astype(str)
+
+    # Update the Google Sheets file with the modified DataFrame
+    st.write(sheet.update([df.columns.values.tolist()] + df.values.tolist()))
+
 else:
     st.text("No data available in the spreadsheet")
-
-
 
 # Create a Streamlit app
 st.title("Power BI Dashboard")
