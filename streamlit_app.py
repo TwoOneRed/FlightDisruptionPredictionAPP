@@ -159,40 +159,64 @@ if len(df) > 1:
     st.text(highest_accuracy_row["Model"]+ "using "+text+" pre-trained model has the highest accuracy of "
             +highest_accuracy_row['Model']+"compare to other model. Therefore, "+highest_accuracy_row["Model"]+"is used in the process afterwards.")
 
+    predict_encode = df.drop(columns=['dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed']).copy()
+    predict_encode = predict_encode.apply(LabelEncoder().fit_transform)
+    X = data_encode.drop('delayStatus', axis = 1)
+    X10 = X[rfe_score.Features[0:10]].copy()
+    X30 = X[rfe_score.Features[0:30]].copy()
+    
     if (highest_accuracy_row["Model"] == "Naive Bayes"):
         filename = "Model/"+highest_accuracy_row['Model_Data']+"_nb.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        y_pred = loaded_model.predict(X)
+        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+            y_pred = loaded_model.predict(X10)    
+        else:
+            y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
     elif (highest_accuracy_row["Model"] == "Support Vector Machine"):
         filename = "Model/"+highest_accuracy_row['Model_Data']+"_svm.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        y_pred = loaded_model.predict(X)
+        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+            y_pred = loaded_model.predict(X10)    
+        else:
+            y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
     elif (highest_accuracy_row["Model"] == "Decision Tree"):
         filename = "Model/"+highest_accuracy_row['Model_Data']+"_dt.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        y_pred = loaded_model.predict(X)
+        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+            y_pred = loaded_model.predict(X10)    
+        else:
+            y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
     elif (highest_accuracy_row["Model"] == "Random Forest"):
         filename = "Model/"+highest_accuracy_row['Model_Data']+"_rf.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        y_pred = loaded_model.predict(X)
+        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+            y_pred = loaded_model.predict(X10)    
+        else:
+            y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
     elif (highest_accuracy_row["Model"] == "K Nearest Neighbours"):
         filename = "Model/"+highest_accuracy_row['Model_Data']+"_knn.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        y_pred = loaded_model.predict(X)
+        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+            y_pred = loaded_model.predict(X10)    
+        else:
+            y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
     else:
         filename = "Model/"+highest_accuracy_row['Model_Data']+"_lr.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        y_pred = loaded_model.predict(X)
+        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+            y_pred = loaded_model.predict(X10)    
+        else:
+            y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
     
     sheet = client.open("FYP2_PredictionResult").sheet1
