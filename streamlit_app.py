@@ -145,7 +145,7 @@ if len(df) > 1:
     # Merge all the dataframes
     merged_df = pd.concat(dataframes, ignore_index=True)
 
-    highest_accuracy_row = merged_df.loc[merged_df['Accuracy'].idxmax()]
+    highest_accuracy_row = merged_df.loc[merged_df['F1-score'].idxmax()]
     text = ""
     if (highest_accuracy_row['Model_Data'] == "norm10"):
         text = "Normal Data with 10 Features"
@@ -229,14 +229,14 @@ if len(df) > 1:
 
     # Update the Google Sheets file with the modified DataFrame
     st.write(sheet.update([df.columns.values.tolist()] + df.values.tolist()))
+    # Create a Streamlit app
+    st.title("Power BI Dashboard")
+
+    # Display the report
+    st.markdown("""<iframe title="Report Section" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiYmZiZmJlZDktNjcyZS00MTEzLWEyOTQtYzgzZDJhYTVlNGE3IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
 
 else:
     st.text("No data available in the spreadsheet")
 
-# Create a Streamlit app
-st.title("Power BI Dashboard")
-
-# Display the report
-st.markdown("""<iframe title="Report Section" width="900" height="550" src="https://app.powerbi.com/view?r=eyJrIjoiYmZiZmJlZDktNjcyZS00MTEzLWEyOTQtYzgzZDJhYTVlNGE3IiwidCI6IjdlMGI1ZmNmLTEyYzQtNGVmZi05NmI2LTQ2NjRmMjVkYzdkYSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>""", unsafe_allow_html=True)
 
 
