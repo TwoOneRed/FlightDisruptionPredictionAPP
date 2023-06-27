@@ -4,7 +4,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pickle
 
-from sklearn.preprocessing import MinMaxScaler,LabelEncoder
+from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score,precision_score, recall_score, f1_score
 
 st.title('Flight Disruption Prediction Applications')
@@ -32,7 +32,7 @@ else:
     # Check if there are any rows in the DataFrame
     if len(df) > 1:
         df = pd.DataFrame(df[1:], columns=df[0])
-        df = df.drop(columns=['Prediction']).copy()  
+        df = df.drop(columns=['F1-score']).copy()  
         st.dataframe(df)
     else:
         st.text("No data available in the spreadsheet")
@@ -145,20 +145,20 @@ if len(df) > 1:
     # Merge all the dataframes
     merged_df = pd.concat(dataframes, ignore_index=True)
 
-    highest_accuracy_row = merged_df.loc[merged_df['F1-score'].idxmax()]
+    highest_f1_row = merged_df.loc[merged_df['F1-score'].idxmax()]
     text = ""
-    if (highest_accuracy_row['Model_Data'] == "norm10"):
+    if (highest_f1_row['Model_Data'] == "norm10"):
         text = "Normal Data with 10 Features"
-    elif (highest_accuracy_row['Model_Data'] == "norm30"):
+    elif (highest_f1_row['Model_Data'] == "norm30"):
         text = "Normal Data with 30 Features"    
-    elif (highest_accuracy_row['Model_Data'] == "smote10"):
+    elif (highest_f1_row['Model_Data'] == "smote10"):
         text = "SMOTE Data with 10 Features"        
     else:
         text = "SMOTE Data with 30 Features"        
 
-    st.text(highest_accuracy_row["Model"]+ " using "+text+" pre-trained model has the\nhighest F1-Score of "
-            +str(highest_accuracy_row['F1-Score'])+" compare to other model. \nTherefore, "
-            +highest_accuracy_row["Model"]+" is used in the process afterwards.")
+    st.text(highest_f1_row["Model"]+ " using "+text+" pre-trained model has the\nhighest F1-Score of "
+            +str(highest_f1_row['F1-Score'])+" compare to other model. \nTherefore, "
+            +highest_f1_row["Model"]+" is used in the process afterwards.")
 
     predict_encode = df.drop(columns=['flight_iata','dep_Lat','dep_Lon','arr_Lat','arr_Lon','delayed']).copy()
     predict_encode = predict_encode.apply(LabelEncoder().fit_transform)
@@ -166,55 +166,55 @@ if len(df) > 1:
     X10 = X[rfe_score.Features[0:10]].copy()
     X30 = X[rfe_score.Features[0:30]].copy()
     
-    if (highest_accuracy_row["Model"] == "Naive Bayes"):
-        filename = "Model/"+highest_accuracy_row['Model_Data']+"_nb.pkl"
+    if (highest_f1_row["Model"] == "Naive Bayes"):
+        filename = "Model/"+highest_f1_row['Model_Data']+"_nb.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+        if(highest_f1_row['Model_Data'] == "norm10" or highest_f1_row['Model_Data'] == "smote10"):
             y_pred = loaded_model.predict(X10)    
         else:
             y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
-    elif (highest_accuracy_row["Model"] == "Support Vector Machine"):
-        filename = "Model/"+highest_accuracy_row['Model_Data']+"_svm.pkl"
+    elif (highest_f1_row["Model"] == "Support Vector Machine"):
+        filename = "Model/"+highest_f1_row['Model_Data']+"_svm.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+        if(highest_f1_row['Model_Data'] == "norm10" or highest_f1_row['Model_Data'] == "smote10"):
             y_pred = loaded_model.predict(X10)    
         else:
             y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
-    elif (highest_accuracy_row["Model"] == "Decision Tree"):
-        filename = "Model/"+highest_accuracy_row['Model_Data']+"_dt.pkl"
+    elif (highest_f1_row["Model"] == "Decision Tree"):
+        filename = "Model/"+highest_f1_row['Model_Data']+"_dt.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+        if(highest_f1_row['Model_Data'] == "norm10" or highest_f1_row['Model_Data'] == "smote10"):
             y_pred = loaded_model.predict(X10)    
         else:
             y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
-    elif (highest_accuracy_row["Model"] == "Random Forest"):
-        filename = "Model/"+highest_accuracy_row['Model_Data']+"_rf.pkl"
+    elif (highest_f1_row["Model"] == "Random Forest"):
+        filename = "Model/"+highest_f1_row['Model_Data']+"_rf.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+        if(highest_f1_row['Model_Data'] == "norm10" or highest_f1_row['Model_Data'] == "smote10"):
             y_pred = loaded_model.predict(X10)    
         else:
             y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
-    elif (highest_accuracy_row["Model"] == "K Nearest Neighbours"):
-        filename = "Model/"+highest_accuracy_row['Model_Data']+"_knn.pkl"
+    elif (highest_f1_row["Model"] == "K Nearest Neighbours"):
+        filename = "Model/"+highest_f1_row['Model_Data']+"_knn.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+        if(highest_f1_row['Model_Data'] == "norm10" or highest_f1_row['Model_Data'] == "smote10"):
             y_pred = loaded_model.predict(X10)    
         else:
             y_pred = loaded_model.predict(X30)    
         df['Prediction'] = y_pred
 
     else:
-        filename = "Model/"+highest_accuracy_row['Model_Data']+"_lr.pkl"
+        filename = "Model/"+highest_f1_row['Model_Data']+"_lr.pkl"
         loaded_model = pickle.load(open(filename,'rb'))
-        if(highest_accuracy_row['Model_Data'] == "norm10" or highest_accuracy_row['Model_Data'] == "smote10"):
+        if(highest_f1_row['Model_Data'] == "norm10" or highest_f1_row['Model_Data'] == "smote10"):
             y_pred = loaded_model.predict(X10)    
         else:
             y_pred = loaded_model.predict(X30)    
