@@ -24,7 +24,7 @@ if uploaded_file:
     df = pd.read_csv(uploaded_file)
     st.text("Uploaded Dataset")
     st.dataframe(df.head(5))
-    sheet = client.open("FYP2Data_PowerBI").sheet1
+    sheet = client.open("FYP2_PredictionResult").sheet1
     # Clear the existing data from the sheet
     sheet.clear()
 
